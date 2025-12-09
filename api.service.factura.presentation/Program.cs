@@ -1,10 +1,19 @@
+using api.service.factura.infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
+#region servicios
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddPersistence(builder.Configuration);
+
+#endregion servicios
+
 var app = builder.Build();
+
+#region middleware
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -32,6 +41,8 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+#endregion middleware
 
 app.Run();
 

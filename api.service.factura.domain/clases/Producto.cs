@@ -15,7 +15,6 @@ public partial class Producto
     public string Nombre { get; set; } = null!;
 
     [Column("precio")]
-    [Precision(10, 2)]
     public decimal Precio { get; set; }
 
     [Column("estado")]

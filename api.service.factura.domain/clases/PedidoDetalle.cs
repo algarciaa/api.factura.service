@@ -20,11 +20,9 @@ public partial class PedidoDetalle
     public int Cantidad { get; set; }
 
     [Column("precio_unitario")]
-    [Precision(10, 2)]
     public decimal PrecioUnitario { get; set; }
 
     [Column("subtotal")]
-    [Precision(12, 2)]
     public decimal? Subtotal { get; set; }
 
     [Column("estado")]

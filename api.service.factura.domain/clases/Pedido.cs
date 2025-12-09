@@ -17,7 +17,6 @@ public partial class Pedido
     public DateTime? Fecha { get; set; }
 
     [Column("total")]
-    [Precision(12, 2)]
     public decimal? Total { get; set; }
 
     [Column("estado")]

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using api.service.factura.domain.clases;
 
-namespace api.service.factura.infrastructure;
+namespace api.service.factura.infrastructure.context;
 
 public partial class FacturaDbContext : DbContext
 {
@@ -56,7 +54,9 @@ public partial class FacturaDbContext : DbContext
             entity.Property(e => e.Estado).HasDefaultValue(true);
             entity.Property(e => e.Fecha).HasDefaultValueSql("now()");
             entity.Property(e => e.FechaInsert).HasDefaultValueSql("now()");
-            entity.Property(e => e.Total).HasDefaultValueSql("0");
+            entity.Property(e => e.Total)
+                  .HasDefaultValueSql("0")
+                  .HasPrecision(12, 2);
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Pedidos)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -69,7 +69,12 @@ public partial class FacturaDbContext : DbContext
 
             entity.Property(e => e.Estado).HasDefaultValue(true);
             entity.Property(e => e.FechaInsert).HasDefaultValueSql("now()");
-            entity.Property(e => e.Subtotal).HasComputedColumnSql("((cantidad)::numeric * precio_unitario)", true);
+            entity.Property(e => e.Subtotal)
+                  .HasComputedColumnSql("((cantidad)::numeric * precio_unitario)", true)
+                  .HasPrecision(12, 2);
+
+            entity.Property(e => e.PrecioUnitario)
+                .HasPrecision(10, 2);
 
             entity.HasOne(d => d.Pedido).WithMany(p => p.PedidoDetalles).HasConstraintName("fk_detalle_pedido");
 
@@ -84,6 +89,8 @@ public partial class FacturaDbContext : DbContext
 
             entity.Property(e => e.Estado).HasDefaultValue(true);
             entity.Property(e => e.FechaInsert).HasDefaultValueSql("now()");
+            entity.Property(e => e.Precio)
+                  .HasPrecision(10, 2);
         });
 
         OnModelCreatingPartial(modelBuilder);
