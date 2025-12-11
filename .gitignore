@@ -6,4 +6,5 @@ api.service.factura.infrastructure/obj/
 api.service.factura.infrastructure/bin/
 api.service.factura.presentation/obj/
 api.service.factura.presentation/bin/
-/api.service.factura.presentation/appsettings.json
+/api.service.factura.presentation/appsettings.json.original
+/api.service.factura.presentation/appsettings.Development.json.original

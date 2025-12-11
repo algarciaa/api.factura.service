@@ -5,6 +5,9 @@ using api.service.factura.presentation.endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "3000";
+var url = $"http://0.0.0.0:{port}";
+
 #region servicios
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -25,10 +28,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
 app.MapGroup("/v1/cliente").MapCliente();
 
 #endregion middleware
 
-app.Run();
+app.Run(url);
