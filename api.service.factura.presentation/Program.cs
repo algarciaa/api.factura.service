@@ -12,6 +12,8 @@ var url = $"http://0.0.0.0:{port}";
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplicationServices();
@@ -26,9 +28,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.MapGroup("/v1/cliente").MapCliente();
+app.MapGroup("/v1/producto").MapProducto();
 
 #endregion middleware
 

@@ -1,5 +1,6 @@
 using api.service.factura.infrastructure.context;
 using api.service.factura.infrastructure.context.cliente;
+using api.service.factura.infrastructure.context.producto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ public static class DependencyInjection
 
         services.AddScoped(typeof(IContextGeneral<>), typeof(ContextGeneral<>));
         services.AddScoped<IClienteContext, ClienteContext>();
+        services.AddScoped<IProductoContext, ProductoContext>();
 
         return services;
     }

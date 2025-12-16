@@ -1,38 +1,46 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using api.service.factura.domain.clases;
 
 namespace api.service.factura.infrastructure.context;
 
-public partial class FacturaDbContext : DbContext
+public partial class FacturaDbContext(DbContextOptions<FacturaDbContext> options) : DbContext(options)
 {
-    public FacturaDbContext(DbContextOptions<FacturaDbContext> options)
-        : base(options)
-    {
-    }
+    public required DbSet<Cliente> Clientes { get; set; }
 
-    public virtual DbSet<Cliente> Clientes { get; set; }
+    public required DbSet<Pedido> Pedidos { get; set; }
 
-    public virtual DbSet<Pedido> Pedidos { get; set; }
+    public required DbSet<PedidoDetalle> PedidoDetalles { get; set; }
 
-    public virtual DbSet<PedidoDetalle> PedidoDetalles { get; set; }
+    public required DbSet<Producto> Productos { get; set; }
 
-    public virtual DbSet<Producto> Productos { get; set; }
+    private static readonly string[] _aalLevel = ["aal1", "aal2", "aal3"];
+    private static readonly string[] _codeChallengeMethod = ["s256", "plain"];
+    private static readonly string[] _factorStatus = ["unverified", "verified"];
+    private static readonly string[] _factorType = ["totp", "webauthn", "phone"];
+    private static readonly string[] _oauthAuthorizationStatus = ["pending", "approved", "denied", "expired"];
+    private static readonly string[] _oauthClientType = ["public", "confidential"];
+    private static readonly string[] _oauthRegistrationType = ["dynamic", "manual"];
+    private static readonly string[] _oauthResponseType = ["code"];
+    private static readonly string[] _oneTimeTokenType = ["confirmation_token", "reauthentication_token", "recovery_token", "email_change_token_new", "email_change_token_current", "phone_change_token"];
+    private static readonly string[] _action = ["INSERT", "UPDATE", "DELETE", "TRUNCATE", "ERROR"];
+    private static readonly string[] _equalityOp = ["eq", "neq", "lt", "lte", "gt", "gte", "in"];
+    private static readonly string[] _buckettype = ["STANDARD", "ANALYTICS", "VECTOR"];
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
-            .HasPostgresEnum("auth", "aal_level", new[] { "aal1", "aal2", "aal3" })
-            .HasPostgresEnum("auth", "code_challenge_method", new[] { "s256", "plain" })
-            .HasPostgresEnum("auth", "factor_status", new[] { "unverified", "verified" })
-            .HasPostgresEnum("auth", "factor_type", new[] { "totp", "webauthn", "phone" })
-            .HasPostgresEnum("auth", "oauth_authorization_status", new[] { "pending", "approved", "denied", "expired" })
-            .HasPostgresEnum("auth", "oauth_client_type", new[] { "public", "confidential" })
-            .HasPostgresEnum("auth", "oauth_registration_type", new[] { "dynamic", "manual" })
-            .HasPostgresEnum("auth", "oauth_response_type", new[] { "code" })
-            .HasPostgresEnum("auth", "one_time_token_type", new[] { "confirmation_token", "reauthentication_token", "recovery_token", "email_change_token_new", "email_change_token_current", "phone_change_token" })
-            .HasPostgresEnum("realtime", "action", new[] { "INSERT", "UPDATE", "DELETE", "TRUNCATE", "ERROR" })
-            .HasPostgresEnum("realtime", "equality_op", new[] { "eq", "neq", "lt", "lte", "gt", "gte", "in" })
-            .HasPostgresEnum("storage", "buckettype", new[] { "STANDARD", "ANALYTICS", "VECTOR" })
+            .HasPostgresEnum("auth", "aal_level", _aalLevel)
+            .HasPostgresEnum("auth", "code_challenge_method", _codeChallengeMethod)
+            .HasPostgresEnum("auth", "factor_status", _factorStatus)
+            .HasPostgresEnum("auth", "factor_type", _factorType)
+            .HasPostgresEnum("auth", "oauth_authorization_status", _oauthAuthorizationStatus)
+            .HasPostgresEnum("auth", "oauth_client_type", _oauthClientType)
+            .HasPostgresEnum("auth", "oauth_registration_type", _oauthRegistrationType)
+            .HasPostgresEnum("auth", "oauth_response_type", _oauthResponseType)
+            .HasPostgresEnum("auth", "one_time_token_type", _oneTimeTokenType)
+            .HasPostgresEnum("realtime", "action", _action)
+            .HasPostgresEnum("realtime", "equality_op", _equalityOp)
+            .HasPostgresEnum("storage", "buckettype", _buckettype)
             .HasPostgresExtension("extensions", "pg_stat_statements")
             .HasPostgresExtension("extensions", "pgcrypto")
             .HasPostgresExtension("extensions", "uuid-ossp")
