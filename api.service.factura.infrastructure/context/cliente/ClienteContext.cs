@@ -16,8 +16,9 @@ public class ClienteContext : IClienteContext
         return await _context.GetAll();
     }
 
-    public async Task<Cliente?> GetByIdAsync(int id)
+    public async Task<Cliente> GetByIdAsync(int id)
     { 
-        return await _context.GetById(id);
+        Cliente cliente = await _context.GetById(id) ?? new Cliente();
+        return cliente;
     }
 }

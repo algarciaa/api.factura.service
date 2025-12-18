@@ -5,4 +5,5 @@ namespace api.service.factura.application.ifeatures;
 public interface IClienteHandler
 {
     Task<List<ClienteResponseDto>> GetAll();
+    Task<ClienteResponseDto> GetById(int id);
 }
