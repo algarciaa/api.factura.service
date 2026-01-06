@@ -1,4 +1,6 @@
+using api.service.factura.application.commons.dtos;
 using api.service.factura.application.ifeatures;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace api.service.factura.presentation.endpoints;
 
@@ -10,7 +12,7 @@ public static class ProductoEndpoints
         return builder;
     }
 
-    private static async Task<IResult> GetAll(IProductoHandler productoHandler)
+    private static async Task<Results<Ok<List<ProductoResponseDto>>, ProblemHttpResult>> GetAll(IProductoHandler productoHandler)
     {
         return TypedResults.Ok(await productoHandler.GetAll());
     }

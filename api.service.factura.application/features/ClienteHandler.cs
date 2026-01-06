@@ -27,4 +27,13 @@ class ClienteHandler : IClienteHandler
         var cliente = await _context.GetByIdAsync(id);
         return _mapper.ToResponseDto(cliente);
     }
+
+    public async Task<ClienteResponseDto> Insert(ClienteRequestDto clienteRequest)
+    { 
+        var cliente = _mapper.ToRequestDto(clienteRequest);
+        
+        var clienteResponse = await _context.InsertAsync(cliente);
+        
+        return _mapper.ToResponseDto(clienteResponse);
+    }
 }

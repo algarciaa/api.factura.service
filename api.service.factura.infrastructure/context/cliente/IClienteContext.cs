@@ -7,4 +7,6 @@ public interface IClienteContext
 {
     Task<List<Cliente>> GetAllAsync();
     Task<Cliente> GetByIdAsync(int id);
+
+    Task<Cliente> InsertAsync(Cliente cliente);
 }

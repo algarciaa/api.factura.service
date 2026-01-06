@@ -21,4 +21,9 @@ public class ClienteContext : IClienteContext
         Cliente cliente = await _context.GetById(id) ?? new Cliente();
         return cliente;
     }
+
+    public async Task<Cliente> InsertAsync(Cliente cliente)
+    {
+        return await _context.Add(cliente);
+    }
 }
