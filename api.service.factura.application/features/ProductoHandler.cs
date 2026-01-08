@@ -21,4 +21,19 @@ public class ProductoHandler : IProductoHandler
         var productos = await _context.GetAllAsync();
         return _mapper.ToResponseDto(productos);
     }
+
+    public async Task<ProductoResponseDto> GetById(int id)
+    {
+        var producto = await _context.GetByIdAsync(id);
+        return _mapper.ToResponseDto(producto);
+    }
+
+    public async Task<ProductoResponseDto> Insert(ProductoRequestDto productoRequest)
+    {
+        var producto = _mapper.ToRequestDto(productoRequest);
+
+        var productoResponse = await _context.InsertAsync(producto);
+
+        return _mapper.ToResponseDto(productoResponse);
+    }
 }

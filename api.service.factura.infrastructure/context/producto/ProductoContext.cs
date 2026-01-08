@@ -15,4 +15,15 @@ public class ProductoContext : IProductoContext
     {
         return await _context.GetAll();
     }
+
+    public async Task<Producto> GetByIdAsync(int id)
+    {
+        Producto producto = await _context.GetById(id) ?? new Producto();
+        return producto;
+    }
+
+    public async Task<Producto> InsertAsync(Producto producto)
+    {
+        return await _context.Add(producto);
+    }
 }

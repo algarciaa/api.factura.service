@@ -13,4 +13,5 @@ public partial class Mappings
     public partial List<ProductoResponseDto> ToResponseDto(List<Producto> productos);
 
     public partial Cliente ToRequestDto(ClienteRequestDto clienteRequestDto);
+    public partial Producto ToRequestDto(ProductoRequestDto productoRequestDto);
 }

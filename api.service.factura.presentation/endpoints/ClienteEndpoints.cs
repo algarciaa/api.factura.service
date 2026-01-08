@@ -22,7 +22,8 @@ public static class ClienteEndpoints
     }
 
     static async Task<Results<Ok<ClienteResponseDto>, 
-                              NotFound<string>>> GetById([FromRoute] int id, 
+                              NotFound<string>,
+                              ProblemHttpResult>> GetById([FromRoute] int id, 
                                                          IClienteHandler clienteHandler)
     {
         var cliente = await clienteHandler.GetById(id);
