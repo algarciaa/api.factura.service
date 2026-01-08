@@ -26,4 +26,54 @@ public class ClienteContext : IClienteContext
     {
         return await _context.Add(cliente);
     }
+
+    public async Task<(bool, string?)> UpdateAsync(Cliente cliente)
+    {
+        bool isUpdate = false;
+        var result = await _context.GetById(cliente.ClienteId);
+
+        if (result != null)
+        {
+
+            if(!string.IsNullOrEmpty(cliente.Direccion) && cliente.Direccion != result.Direccion)
+            {
+                result.Direccion = cliente.Direccion;
+                isUpdate = true;
+            }
+
+            if (!string.IsNullOrEmpty(cliente.Telefono) && cliente.Telefono != result.Telefono)
+            { 
+                result.Telefono = cliente.Telefono;
+                isUpdate = true;
+            }
+
+            if (isUpdate)
+            { 
+                result.FechaUpdate = DateTime.Now;
+                await _context.Update(result);
+                return (true, null);
+            }
+            else
+            { 
+                return (false, null);
+            }
+        }
+
+        return (false,"No encontrado");
+    }
+
+    public async Task<(bool, string?)> Delete(int id, bool softDelete)
+    { 
+        var result = await _context.GetById(id);
+
+        if (result != null)
+        {
+            result.Estado = softDelete;
+            result.FechaUpdate = DateTime.Now;
+            await _context.Update(result);
+            return (true, null);
+        }
+
+        return (false,"No encontrado");
+    }
 }

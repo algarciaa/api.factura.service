@@ -36,4 +36,22 @@ class ClienteHandler : IClienteHandler
         
         return _mapper.ToResponseDto(clienteResponse);
     }
+
+    public async Task<(bool, string?)> UpdateAsync(ClienteRequestDto clienteRequest, int id)
+    { 
+        var cliente = _mapper.ToRequestDto(clienteRequest);
+
+        cliente.ClienteId = id;
+        
+        var result = await _context.UpdateAsync(cliente);
+
+        return result;
+    }
+
+    public async Task<(bool, string?)> Delete(int id, bool softDelete)
+    { 
+        var result = await _context.Delete(id, softDelete);
+
+        return result;
+    }
 }
