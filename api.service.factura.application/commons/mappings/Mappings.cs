@@ -11,7 +11,23 @@ public partial class Mappings
     public partial List<ClienteResponseDto> ToResponseDto(List<Cliente> clientes);
     public partial ProductoResponseDto ToResponseDto(Producto produto);
     public partial List<ProductoResponseDto> ToResponseDto(List<Producto> productos);
+    public partial PedidoResponseDto ToResponseDto(Pedido pedido);
+    public partial PedidoDetalleResponseDto ToResponseDto(PedidoDetalle pedidoDetalle);
+
 
     public partial Cliente ToRequestDto(ClienteRequestDto clienteRequestDto);
     public partial Producto ToRequestDto(ProductoRequestDto productoRequestDto);
+    public partial Pedido ToRequestDto(PedidoRequestDto pedidoRequestDto);
+
+    private static void AfterMapping(PedidoRequestDto source, Pedido target)
+    {
+        target.Total = source.PedidoDetalles.Sum(x => x.Cantidad * x.PrecioUnitario);
+    }
+
+    public partial PedidoDetalle ToRequestDto(PedidoDetalleRequestDto pedidoDetalleRequestDto);
+
+    private static void AfterMapping(PedidoDetalleRequestDto source, PedidoDetalle target)
+    { 
+        target.Subtotal = source.Cantidad * source.PrecioUnitario;
+    }
 }

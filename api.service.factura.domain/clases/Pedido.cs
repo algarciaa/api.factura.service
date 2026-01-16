@@ -13,7 +13,7 @@ public partial class Pedido
     [Column("cliente_id")]
     public int ClienteId { get; set; }
 
-    [Column("fecha", TypeName = "timestamp without time zone")]
+    [Column("fecha", TypeName = "timestamp with time zone")]
     public DateTime? Fecha { get; set; }
 
     [Column("total")]

@@ -34,6 +34,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapGroup("/v1/cliente").MapCliente();
 app.MapGroup("/v1/producto").MapProducto();
+app.MapGroup("/v1/pedido").MapPedido();
 
 #endregion middleware
 
